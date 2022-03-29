@@ -2,7 +2,7 @@ version: "3.9"
 
 services:
   prometheus:
-    image: prom/prometheus:v2.33.5
+    image: prom/prometheus:v2.34.0
     volumes:
       - ./prometheus/config/:/etc/prometheus/
       - ./prometheus/data/:/prometheus/
@@ -10,3 +10,15 @@ services:
       - '--config.file=/etc/prometheus/prometheus.yml'
     ports:
       - 9090:9090
+
+  node-exporter:
+    image: prom/node-exporter:v1.3.1
+    ports:
+      - 9100:9100
+
+  grafana:
+    image: grafana/grafana-oss:8.4.4
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD__FILE=/run/secrets/grafana-admnin
+    ports:
+      - 3000:3000
