@@ -11,3 +11,9 @@ scrape_configs:
       - names: [node-exporter]
         type: A
         port: 9100
+    metric_relabel_configs:
+      - source_labels: [__name__]
+        regex: ^node_cpu_seconds_total|node_memory_(Buffers|Cached|MemFree|MemTotal)_bytes$
+        action: keep
+      - regex: instance
+        action: labeldrop
