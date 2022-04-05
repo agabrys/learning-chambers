@@ -4,10 +4,7 @@ services:
   prometheus:
     image: prom/prometheus:v2.34.0
     volumes:
-      - ./prometheus/config/:/etc/prometheus/
-      - ./prometheus/data/:/prometheus/
-    command:
-      - '--config.file=/etc/prometheus/prometheus.yml'
+      - ./prometheus/config:/etc/prometheus
     ports:
       - 9090:9090
 
@@ -17,8 +14,12 @@ services:
       - 9100:9100
 
   grafana:
-    image: grafana/grafana-oss:8.4.4
+    image: grafana/grafana-oss:8.4.5
+    volumes:
+      - ./grafana/config:/etc/grafana
+      - ./grafana/dashboards:/var/lib/grafana/dashboards
+      - ./grafana/secrets:/run/secrets
     environment:
-      - GF_SECURITY_ADMIN_PASSWORD__FILE=/run/secrets/grafana-admnin
+      - GF_SECURITY_ADMIN_PASSWORD__FILE=/run/secrets/admin-password.txt
     ports:
       - 3000:3000

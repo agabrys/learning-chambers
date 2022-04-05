@@ -10,10 +10,8 @@
 
 ## How To Run
 
-```shell
-echo <password> | docker secret create grafana-admin -
-```
-
-```shell
-docker compose up -d
-```
+1. Create the `grafana/secrets/admin-password.txt` file with the Grafana admin user
+1. Create and starts the containers:
+   ```shell
+   docker compose up -d
+   ```
