@@ -1,0 +1,10 @@
+groups:
+  - name: node-exporter-availability
+    rules:
+    - alert: NodeExporterDown
+      expr: up{job="node-exporter"} == 0 or absent(up{job="node-exporter"}) == 1
+      for: 1m
+      labels:
+        serverity: critical
+      annotations:
+        summary: The node exporter instance is down

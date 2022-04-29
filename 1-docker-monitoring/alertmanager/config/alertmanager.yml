@@ -1,0 +1,15 @@
+global:
+  smtp_from: AlertManager <alertmanager@example.org>
+  smtp_smarthost: localhost:25
+
+templates:
+  - templates/*.tmpl
+
+route:
+  receiver: default-receiver
+
+receivers:
+  - name: default-receiver
+    email_configs:
+      - send_resolved: true
+        to: '{{ template "receiver.default-receiver.email.to" . }}'
